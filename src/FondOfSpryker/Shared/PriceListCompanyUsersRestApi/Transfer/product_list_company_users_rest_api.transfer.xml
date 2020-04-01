@@ -9,4 +9,16 @@
     <transfer name="RestPriceListAttributes">
         <property name="name" type="string" />
     </transfer>
+
+    <transfer name="CompanyUser">
+        <property name="company" type="Company" />
+    </transfer>
+
+    <transfer name="Company">
+        <property name="priceList" type="PriceList" />
+    </transfer>
+
+    <transfer name="PriceList">
+        <property name="uuid" type="string" />
+    </transfer>
 </transfers>
