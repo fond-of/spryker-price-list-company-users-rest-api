@@ -54,8 +54,30 @@ class PriceListsCompanyUsersResourceRelationshipPluginTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->priceListsCompanyUsersResourceRelationshipPlugin = new PriceListsCompanyUsersResourceRelationshipPlugin();
-        $this->priceListsCompanyUsersResourceRelationshipPlugin->setFactory($this->priceListCompanyUsersRestApiFactoryMock);
+        $this->priceListsCompanyUsersResourceRelationshipPlugin = new class (
+            $this->priceListCompanyUsersRestApiFactoryMock
+        ) extends PriceListsCompanyUsersResourceRelationshipPlugin {
+            /**
+             * @var \FondOfSpryker\Glue\PriceListCompanyUsersRestApi\PriceListCompanyUsersRestApiFactory
+             */
+            protected $priceListCompanyUsersRestApiFactory;
+
+            /**
+             * @param \FondOfSpryker\Glue\PriceListCompanyUsersRestApi\PriceListCompanyUsersRestApiFactory $priceListCompanyUsersRestApiFactory
+             */
+            public function __construct(PriceListCompanyUsersRestApiFactory $priceListCompanyUsersRestApiFactory)
+            {
+                $this->priceListCompanyUsersRestApiFactory = $priceListCompanyUsersRestApiFactory;
+            }
+
+            /**
+             * @return \FondOfSpryker\Glue\PriceListCompanyUsersRestApi\PriceListCompanyUsersRestApiFactory
+             */
+            public function getFactory(): PriceListCompanyUsersRestApiFactory
+            {
+                return $this->priceListCompanyUsersRestApiFactory;
+            }
+        };
     }
 
     /**
